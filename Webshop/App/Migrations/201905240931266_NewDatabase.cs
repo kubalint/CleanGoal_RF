@@ -1,9 +1,9 @@
-namespace App.Migrations
+﻿namespace App.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class DatabaseCreation : DbMigration
+    public partial class NewDatabase : DbMigration
     {
         public override void Up()
         {

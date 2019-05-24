@@ -46,6 +46,12 @@
     <MvcBuildViews>true</MvcBuildViews>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0-preview5-19254-05\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.3.0-preview5-19254-05\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -124,12 +130,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -207,9 +207,9 @@
     <Compile Include="Migrations\201905150907263_InitialCreate.Designer.cs">
       <DependentUpon>201905150907263_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201905231441286_DatabaseCreation.cs" />
-    <Compile Include="Migrations\201905231441286_DatabaseCreation.Designer.cs">
-      <DependentUpon>201905231441286_DatabaseCreation.cs</DependentUpon>
+    <Compile Include="Migrations\201905240931266_NewDatabase.cs" />
+    <Compile Include="Migrations\201905240931266_NewDatabase.Designer.cs">
+      <DependentUpon>201905240931266_NewDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -343,8 +343,8 @@
     <EmbeddedResource Include="Migrations\201905150907263_InitialCreate.resx">
       <DependentUpon>201905150907263_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201905231441286_DatabaseCreation.resx">
-      <DependentUpon>201905231441286_DatabaseCreation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201905240931266_NewDatabase.resx">
+      <DependentUpon>201905240931266_NewDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
