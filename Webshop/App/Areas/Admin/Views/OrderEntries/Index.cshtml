@@ -1,0 +1,115 @@
+﻿@using Persistence.Model;
+@model List<Order>
+
+@{
+    ViewBag.Title = "Index";
+    string pipe = " |";
+}
+
+<h2>Orders</h2>
+
+<h3>Filter by status: </h3>
+@Html.ActionLink("Active", "Filter", new { id = "Active" }) |
+@Html.ActionLink("Delivered", "Filter", new { id = "Delivered" }) |
+@Html.ActionLink("Deleted", "Filter", new { id = "Deleted" }) |
+@Html.ActionLink("Back to orders", "Index")
+
+<hr />
+
+<table class="table">
+    <tr>
+        <th>
+            OrderId
+        </th>
+        <th>
+            FirstName
+        </th>
+        <th>
+            LastName
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Status
+        </th>
+
+        <th></th>
+    </tr>
+
+
+
+    @foreach (Order entry in Model)
+    {
+        var date = entry.Date.ToShortDateString();
+        var firstname = entry.FirstName;
+        var lastname = entry.LastName;
+        var address = entry.Address;
+        var email = entry.Email;
+        var status = "Deleted";
+
+        if (Enum.GetName(typeof(OrderStatus), entry.Status) != "Deleted")
+        {
+            status = Enum.GetName(typeof(OrderStatus), entry.Status);
+        }
+
+        <tr>
+            <td>
+                @entry.OrderId
+            </td>
+            <td>
+                @firstname
+            </td>
+            <td>
+                @lastname
+            </td>
+            <td>
+                @address
+            </td>
+            <td>
+                @email
+            </td>
+            <td>
+                @date
+            </td>
+            <td>
+                @status
+            </td>
+
+            <td>
+
+                @Html.ActionLink("Details", "Details", new { id = entry.OrderId }) |
+
+                @if (status == "Active")
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = entry.OrderId })
+
+                    @pipe
+
+                }
+
+                @if (status == "Active")
+                {
+                    @Html.ActionLink("Delivered", "Deliver", new { id = entry.OrderId })
+                }
+
+                @if (status == "Deleted")
+                {
+                    @Html.ActionLink("Activate", "Activate", new { id = entry.OrderId })
+                }
+
+            </td>
+        </tr>
+
+    }
+
+
+
+
+</table>

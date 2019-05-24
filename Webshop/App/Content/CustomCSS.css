@@ -1,0 +1,452 @@
+﻿* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    outline: 0;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    line-height: 1.3;
+    color: #000;
+}
+
+h1 {
+    font-size: 30px;
+    font-weight: 800;
+    padding-bottom: 10px;
+}
+
+.container p {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+#lookbook {
+    padding-top: 150px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-bottom: 50px;
+}
+
+#contact, #about {
+    padding: 150px 100px;
+}
+
+    #contact > p {
+        padding: 10px 10px;
+    }
+
+html {
+    font-size: 14px;
+}
+
+header {
+    padding: 10px 40px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #e1e1e1;
+    justify-content: space-between;
+}
+
+.icon {
+    height: 20px;
+}
+
+.login_icon {
+    height: 17px;
+}
+
+#vertical_line {
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 20px;
+    text-align: center;
+    font-weight: 100;
+}
+
+
+@media (max-width: 1023px) {
+    header nav {
+        padding: 0 0 0 25px !important;
+        position: relative;
+    }
+}
+
+@media (max-width: 1023px) {
+    header {
+        padding: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .menu, .icon_navbar, .logo {
+        float: left;
+        width: 33.33333333%;
+    }
+}
+
+/*Nav*/
+nav {
+    padding: 5px 5px;
+}
+
+.menu {
+    float: left;
+    margin: 0;
+}
+
+.logo {
+    text-align: center;
+    margin: 0;
+}
+
+nav .logo h3 {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.icon_navbar {
+    float: right;
+    margin: 0;
+    text-align: right;
+}
+
+
+/*Menu dropdown*/
+header a {
+    text-decoration: none;
+
+    /*to make the whole <li> clickable*/
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: block;
+}
+
+header ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.menulink {
+    color: #000;
+    display: block;
+    float: left;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+    position: relative;
+    text-decoration: none;
+    transition-duration: 0.5s;
+    background-color: #fff;
+    width: 300px;
+}
+
+
+header li {
+    color: #000;
+    display: block;
+    float: left;
+    position: relative;
+    text-decoration: none;
+    transition-duration: 0.5s;
+}
+
+    header li a {
+        color: #000;
+
+        /*to make the whole <li> clickable*/
+        width: 100%;
+        height: 100%;
+        margin:0;
+        display:block;
+    }
+
+    header li:hover, li:focus-within {
+        cursor: pointer;
+    }
+
+        li:focus-within a {
+            outline: none;
+        }
+
+header ul li ul {
+    visibility: hidden;
+    opacity: 0;
+    min-width: 5rem;
+    position: absolute;
+    transition: all 0.5s ease;
+    left: 0;
+    display: none;
+}
+
+header ul li:hover > ul,
+ul li:focus-within > ul,
+ul li ul:hover,
+ul li ul:focus {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+}
+
+header ul li ul li {
+    clear: both;
+    width: 100%;
+}
+
+/*LOGIN dropdown*/
+
+.icon_navbar .menulink {
+    color: #000;
+    display: block;
+    float: right;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    position: relative;
+    text-decoration: none;
+    background-color: #fff;
+    width: 300px;
+}
+
+.icon_navbar ul {
+    list-style: none;
+    margin: 0;
+    padding-right: 0;
+}
+
+.icon_navbar li {
+    color: #000;
+    display: block;
+    float: right;
+    position: relative;
+    text-decoration: none;
+}
+
+.icon_navbar ul li ul {
+    visibility: hidden;
+    opacity: 0;
+    min-width: 5rem;
+    position: absolute;
+    right: 0;
+    display: none;
+}
+
+#loginPartial {
+    padding-right:50px;
+}
+
+
+/*MAIN INDEX*/
+.container {
+    width: 100%;
+    display: inline-block;
+    height: auto;
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .leftside, .rightside {
+        width: 50%;
+        float: left;
+        display: inline-block;
+    }
+}
+
+.rightside {
+    max-width: 100%;
+    height: auto;
+    float: right;
+    text-align: center;
+    justify-content: center;
+}
+
+.container-img {
+    max-width: 100%;
+    height: auto;
+}
+
+.container > div {
+    width: 90%;
+    height: auto;
+    padding: 0;
+    display: inline-block;
+    margin: 0;
+}
+
+/*CATEGORY SLIDE*/
+.mySlides {
+    display: none;
+    max-width: 100%;
+    height: auto;
+    position: relative;
+}
+
+#categorySlide {
+    float: none;
+    width: auto;
+    display: inline-block;
+    height: 100%;
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+}
+
+.caption {
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.6);
+    width: 100%;
+    padding: 10px 10px;
+    color: #000;
+    font-weight: 800;
+    font-size: 20px;
+}
+
+/*FORM*/
+
+#formOuterBox {
+    font-size: 18px;
+    width: 100%;
+    display: inline-block;
+    height: auto;
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+}
+
+    #formOuterBox .formInnerBox {
+        width: 40%;
+        height: 100%;
+        background-color: #000;
+        justify-content: center;
+        margin: 0 auto;
+        float: none;
+        padding: 40px 40px;
+        color: #fff;
+    }
+
+.form-group {
+    padding: 5px 0;
+}
+
+.checkbox {
+    text-align: center;
+    float: unset;
+    justify-content: center;
+    margin: 0 auto;
+    height: auto;
+    width: 70%;
+    padding: 0;
+}
+
+.formInnerBox a {
+    text-decoration: none;
+    color: #999999;
+}
+
+#logout {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: block;
+    padding:0;
+}
+
+/*TABLE*/
+td, th {
+    padding: 10px;
+    text-align: left;
+    border: none;
+}
+
+table {
+    border: none;
+    width: 80%;
+    height: auto;
+    float: none;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+tr:nth-child(2n+0) {
+    background-color: #eee;
+    border: none;
+}
+
+/*Controller -> VIEW */
+
+#viewBody {
+    width: 100%;
+    height: auto;
+    float: none;
+    justify-content: center;
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+    #viewBody a {
+        font-weight: 900;
+    }
+
+    #viewBody h2 {
+        text-align: center;
+        padding: 10px 10px;
+    }
+
+    #viewBody a {
+        text-decoration: none;
+        color: #000;
+    }
+
+        #viewBody a:hover {
+            color: #999;
+        }
+
+    #viewBody .sum {
+        text-align: right;
+        float: right;
+    }
+
+    /*GOMBOK*/
+
+button {
+    background-color: #fff;
+    color: #000;
+    padding: 15px 32px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+input {
+    background-color: #fff;
+    color:#000;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    border: none;
+    padding: 10px 10px;
+    width: 300px;
+}
+
+#categorySlideButton {
+    width:50px;
+    font-size:20px;
+}
+
+#formInputButton {
+    font-weight: 900;
+    margin: 20px 0;
+}

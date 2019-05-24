@@ -1,0 +1,36 @@
+﻿@using Persistence.Model;
+
+@model List<Order>
+@{
+    ViewBag.Title = "My orders";
+}
+
+
+
+<h2>My orders</h2>
+<table class="table">
+    <tr>
+        <td>OrderId</td>
+        <td>Address</td>
+        <td>Date</td>
+        <td>Status</td>
+        <td></td>
+    </tr>
+
+    @{
+        foreach (var item in Model)
+        {
+
+            <tr>
+                <td>@item.OrderId</td>
+                <td>@item.Address</td>
+                <td>@item.Date</td>
+                <td>@item.Status</td>
+                <td>@Html.ActionLink("View Details", "Details", new {id = item.OrderId})</td>
+            </tr>
+        }
+    }
+</table>
+
+
+

@@ -1,0 +1,77 @@
+﻿@using App.Models;
+
+@using Persistence.Model;
+@model Dictionary<Product, int>
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    string userID = HelperMethods.GetUserID(User, Session);
+
+    double sum = 0;
+
+    foreach (KeyValuePair<Product, int> item in Model)
+    {
+        sum += item.Key.Price * item.Value;
+    }
+
+    int SUM = (int)sum;
+
+
+}
+
+
+<h2>Basket</h2>
+
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Unit Price
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Key.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Key.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+
+            <td>
+
+                @Html.ActionLink("+", "AddOne", new { id = item.Key.ID }) |
+                @Html.ActionLink("-", "RemoveOne", new { id = item.Key.ID }) |
+                @Html.ActionLink("Delete item", "Delete", new { id = item.Key.ID })
+
+            </td>
+        </tr>
+    }
+
+    <tr>
+        <th colspan="4" class="sum">@SUM $</th>
+    </tr>
+    <tr>
+        <th colspan="4" class="sum">
+            @Html.ActionLink("CHECKOUT", "OrderProducts", new { id = userID })
+            @Html.ActionLink("EMPTY BASKET", "EmptyBasket")
+        </th>
+    </tr>
+</table>

@@ -1,0 +1,59 @@
+﻿@using Persistence.Model;
+@model Persistence.Model.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+
+    <dl class="dl-horizontal">
+        <dt>
+            CategoryName
+        </dt>
+
+        <dd>
+            @Model.Category.CategoryName
+        </dd>
+
+        <dt>
+            Name
+        </dt>
+
+        <dd>
+            @Model.Name
+        </dd>
+
+        <dt>
+            Description
+        </dt>
+
+        <dd>
+            @Model.Description
+        </dd>
+
+        <dt>
+            Price
+        </dt>
+
+        <dd>
+            @Model.Price
+        </dd>
+
+        <dt>
+            @Model.Photo
+        </dt>
+
+        <dd>
+            <img src="@Url.Action("GetImage", "Products", new {id=Model.PhotoID})">
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

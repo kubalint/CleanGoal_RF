@@ -1,0 +1,58 @@
+﻿@using Persistence.Model;
+@model IEnumerable<Persistence.Model.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<h2>Products</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            CategoryName
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Price
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.Available == false)
+        {
+            continue;
+        }
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+
+            <td>
+
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Add", "AddToBasket", new { id = item.ID })
+
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,55 @@
+﻿@using Persistence.Model;
+@using App.Models;
+@model Order
+@{
+    ViewBag.Title = "ViewDetails";
+
+}
+
+<h2>View Details</h2>
+
+<h5>Order No.: @Model.OrderId</h5>
+<h5>Name: @Model.FirstName @Model.LastName</h5>
+<h5>Address: @Model.Address</h5>
+<h5>Date: @Model.Date.ToShortDateString()</h5>
+<h5>Status: @Model.Status</h5>
+
+@{
+    Dictionary<Product, int> products = HelperMethods.GetOrderListFromId(HelperMethods.GetUserID(User, Session), Model.OrderId);
+
+    int sum = (int)products.Keys.Sum(x => x.Price);
+
+    <table class="table">
+
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+
+        @foreach (KeyValuePair<Product, int> entry in products)
+        {
+        <tr>
+            <td>
+                @entry.Key.Name
+            </td>
+
+            <td>
+                @entry.Value
+            </td>
+
+            <td>
+                @entry.Key.Price
+            </td>
+
+
+        </tr>
+        }
+        <tr><td colspan="3" align="right">@sum  $</td></tr>
+
+    </table>
+
+
+}
+
+

@@ -1,0 +1,74 @@
+﻿@using App.Models;
+@using Persistence.Model;
+@model AnonymShippingInfos
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    string userID = HelperMethods.GetUserID(User, Session);
+
+    Dictionary<Product, int> productList = HelperMethods.GetOrderListFromId(userID,Model.OrderID);
+    double sum = 0;
+
+    foreach (KeyValuePair<Product, int> item in productList)
+    {
+        sum += item.Key.Price * item.Value;
+    }
+
+    int SUM = (int)sum;
+
+
+}
+
+
+<h2>Successful order!</h2>
+
+<p>Order No.: @Model.OrderID</p>
+<p>Name: @Model.FirstName @Model.LastName</p>
+<p>Address: @Model.Address</p>
+<p>Email: @Model.Email</p>
+<p>Date: @Model.DateOfOrder.ToShortDateString() @Model.DateOfOrder.ToShortTimeString()</p>
+
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            Product Name
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+            Price
+        </th>
+
+
+        <th></th>
+    </tr>
+
+    @foreach (KeyValuePair<Product, int> item in productList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Key.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Key.Price)
+            </td>
+
+        </tr>
+
+    }
+    <tr>
+        <td colspan="3" align="right">@SUM  $</td>
+    </tr>
+
+</table>
+
+
