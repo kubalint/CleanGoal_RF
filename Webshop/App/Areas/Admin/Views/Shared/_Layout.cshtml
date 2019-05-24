@@ -21,6 +21,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Product Category administration", "Index", new { Area = "Admin", Controller = "ProductCategories" })</li>
                     <li>@Html.ActionLink("Product administration", "Index", new { Area = "Admin", Controller = "Products" })</li>
                     <li>@Html.ActionLink("Order administration", "Index", new { Area = "Admin", Controller = "OrderEntries" })</li>
                     <li>@Html.ActionLink("User administration", "Index", new { Area = "Admin", Controller = "ApplicationUsers" })</li>

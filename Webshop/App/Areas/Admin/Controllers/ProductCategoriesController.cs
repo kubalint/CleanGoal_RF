@@ -112,7 +112,21 @@ namespace App.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            //ProductCategory productCategory = db.ProductCategories.Find(id);
+            //db.ProductCategories.Remove(productCategory);
+            //db.SaveChanges();
+            //return RedirectToAction("Index");
+
             ProductCategory productCategory = db.ProductCategories.Find(id);
+            ProductCategory otherCategory = db.ProductCategories.FirstOrDefault(x => x.CategoryName == "Other");
+
+            List<Product> productsToMove = productCategory.Products;
+
+            foreach (Product p in productsToMove)
+            {
+                p.CategoryID = otherCategory.CategoryId;
+            }
+
             db.ProductCategories.Remove(productCategory);
             db.SaveChanges();
             return RedirectToAction("Index");

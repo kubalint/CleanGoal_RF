@@ -30,13 +30,13 @@ h1 {
     padding-bottom: 50px;
 }
 
-#contact, #about {
+#contactIndex, #aboutIndex {
     padding: 150px 100px;
 }
 
-    #contact > p {
-        padding: 10px 10px;
-    }
+#contact > p {
+    padding: 10px 10px;
+}
 
 html {
     font-size: 14px;
@@ -120,7 +120,6 @@ nav .logo h3 {
 /*Menu dropdown*/
 header a {
     text-decoration: none;
-
     /*to make the whole <li> clickable*/
     width: 100%;
     height: 100%;
@@ -160,12 +159,11 @@ header li {
 
     header li a {
         color: #000;
-
         /*to make the whole <li> clickable*/
         width: 100%;
         height: 100%;
-        margin:0;
-        display:block;
+        margin: 0;
+        display: block;
     }
 
     header li:hover, li:focus-within {
@@ -238,7 +236,7 @@ header ul li ul li {
 }
 
 #loginPartial {
-    padding-right:50px;
+    padding-right: 50px;
 }
 
 
@@ -360,7 +358,7 @@ header ul li ul li {
     height: 100%;
     margin: 0;
     display: block;
-    padding:0;
+    padding: 0;
 }
 
 /*TABLE*/
@@ -418,7 +416,7 @@ tr:nth-child(2n+0) {
         float: right;
     }
 
-    /*GOMBOK*/
+/*GOMBOK*/
 
 button {
     background-color: #fff;
@@ -433,7 +431,7 @@ button {
 
 input {
     background-color: #fff;
-    color:#000;
+    color: #000;
     font-family: 'Raleway', sans-serif;
     font-size: 14px;
     border: none;
@@ -442,8 +440,8 @@ input {
 }
 
 #categorySlideButton {
-    width:50px;
-    font-size:20px;
+    width: 50px;
+    font-size: 20px;
 }
 
 #formInputButton {

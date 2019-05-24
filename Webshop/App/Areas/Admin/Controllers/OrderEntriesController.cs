@@ -29,8 +29,17 @@ namespace App.Areas.Admin.Controllers
         public ActionResult Filter(string id)
         {
             Enum.TryParse(id, out OrderStatus status);
+            List<Order> toView = new List<Order>();
 
-            var toView = db.Orders.Where(x => x.Status == status).ToList();
+            var allOrders = db.Orders.ToList();
+
+            foreach (var order in allOrders)
+            {
+                if (order.Status == status)
+                {
+                    toView.Add(order);
+                } 
+            }
 
             return View("Index", toView);
         }

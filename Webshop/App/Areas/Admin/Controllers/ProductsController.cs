@@ -20,7 +20,7 @@ namespace App.Areas.Admin.Controllers
         // GET: Admin/Products
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Category).Include(p => p.Photo);
+            var products = db.Products.Include(p => p.Category).Include(p => p.Photo).OrderBy(x=>x.CategoryID).ThenBy(x=>x.Name);
             return View(products.ToList());
         }
 
@@ -73,13 +73,17 @@ namespace App.Areas.Admin.Controllers
             {
 
                 product.ID = Guid.NewGuid();
-                photo.ID = Guid.NewGuid();
 
-                photo.MimeType = image.ContentType;
-                photo.PhotoFile = new byte[image.ContentLength];
-                image.InputStream.Read(photo.PhotoFile, 0, image.ContentLength);
-                db.Photos.Add(photo);
-                product.PhotoID = photo.ID;
+                if (image != null)
+                {
+                    photo.ID = Guid.NewGuid();
+                    photo.MimeType = image.ContentType;
+                    photo.PhotoFile = new byte[image.ContentLength];
+                    image.InputStream.Read(photo.PhotoFile, 0, image.ContentLength);
+                    db.Photos.Add(photo);
+                    product.PhotoID = photo.ID;
+                }
+
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -116,11 +120,31 @@ namespace App.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,CategoryID,Name,Description,Price,UrlFriendlyName,Available,PhotoID")] Product product)
+        public ActionResult Edit([Bind(Include = "ID,CategoryID,Name,Description,Price,UrlFriendlyName,Available,PhotoID")] Product product, HttpPostedFileBase image)
         {
+            //if (ModelState.IsValid)
+            //{
+            //    db.Entry(product).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+            //ViewBag.CategoryID = new SelectList(db.ProductCategories, "CategoryId", "CategoryName", product.CategoryID);
+            //ViewBag.PhotoID = new SelectList(db.Photos, "ID", "MimeType", product.PhotoID);
+            //return View(product);
+
+            Photo photo = new Photo();
+
             if (ModelState.IsValid)
             {
                 db.Entry(product).State = EntityState.Modified;
+
+                photo.ID = Guid.NewGuid();
+                photo.MimeType = image.ContentType;
+                photo.PhotoFile = new byte[image.ContentLength];
+                image.InputStream.Read(photo.PhotoFile, 0, image.ContentLength);
+                db.Photos.Add(photo);
+                product.PhotoID = photo.ID;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -128,7 +152,24 @@ namespace App.Areas.Admin.Controllers
             ViewBag.PhotoID = new SelectList(db.Photos, "ID", "MimeType", product.PhotoID);
             return View(product);
         }
-        
+
+        // GET: Admin/Products/DeletePhoto/
+        public ActionResult DeletePhoto(string id)
+        {
+            Product product = db.Products.Find(Guid.Parse(id));
+            Photo photoToRemove = db.Photos.FirstOrDefault(x => x.ID == product.PhotoID);
+
+            if (product !=null && photoToRemove!= null)
+            {
+                product.PhotoID = null;
+
+                db.Photos.Remove(photoToRemove);
+                db.SaveChanges();
+            }
+            
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -61,13 +61,18 @@
              <td>
                  @Html.DisplayFor(modelItem => item.Price)
              </td>
-
              <td>
                  @Html.DisplayFor(modelItem => item.Status)
              </td>
-             <td>
-                 @Html.ActionLink("Delete", "DeleteEntry", new { id = item.ProductID, orderId = @ViewBag.orderID })
-             </td>
+             @{
+                 if (item.Status!=OrderStatus.Delivered)
+                 {
+                     <td>
+                         @Html.ActionLink("Delete", "DeleteEntry", new { id = item.ProductID, orderId = @ViewBag.orderID })
+                     </td>
+                 }
+             }
+            
          </tr>
      }
     

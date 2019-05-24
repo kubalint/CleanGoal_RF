@@ -27,8 +27,8 @@
                         </a>
                         <ul class="dropdown" aria-label="submenu">
                             <li class="menulink">@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li class="menulink"><a href="#about">About</a></li>
-                            <li class="menulink"><a href="#contact">Contact</a></li>
+                            <li class="menulink">@Html.ActionLink("About", "About", "Home")</li>
+                            <li class="menulink">@Html.ActionLink("Contact", "Contact", "Home")</li>
                             <li class="menulink">@Html.ActionLink("Products", "Index", "Product", new { id = userID }, null)</li>
                         </ul>
                     </li>

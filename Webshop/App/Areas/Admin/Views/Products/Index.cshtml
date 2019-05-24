@@ -13,57 +13,61 @@
 <table class="table">
     <tr>
         <th>
-            CategoryName
+            @Html.DisplayNameFor(model => model.Photo)
         </th>
         <th>
-            MimeType
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
         </th>
         <th>
-            Name
+            @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            Description
+            @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            Price
+            @Html.DisplayNameFor(model => model.Price)
         </th>
         <th>
-            UrlFriendlyName
-        </th>
-        <th>
-            Available
+            @Html.DisplayNameFor(model => model.Available)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Photo.MimeType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UrlFriendlyName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Available)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID })            
-        </td>
-    </tr>
-}
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @{
+                    if (item.PhotoID != null)
+                    {
+                        <img src="@Url.Action("GetImage", "Products", new {id=item.PhotoID})" width="90">
+                        @Html.ActionLink("Remove Image", "DeletePhoto", "Products", new { id = item.ID }, null)
+                    }
+                    else
+                    {
+                        <img src="~/Images/DefaultImage/defaultImage.jpg" width="90">
+                    }
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Available)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
