@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using App.Mappers;
+using App.Models.ViewModels;
 using Persistence;
 using Persistence.Model;
 
@@ -19,15 +21,28 @@ namespace App.Controllers
         {
             
             List<BasketEntry> basketEntries =  db.BasketEntries.Where(x => x.UserID == id).ToList();
-            Dictionary<Product,int> productList = new Dictionary<Product, int>();
+            Dictionary<ProductViewModel,int> productList = new Dictionary<ProductViewModel, int>();
 
+            int sum = 0;
             foreach (BasketEntry entry in basketEntries)
             {
-                Product product = db.Products.Where(x => x.ID.ToString() == entry.ProductID).FirstOrDefault();
-                productList.Add(product,entry.Quantity);
+                Product product = db.Products.FirstOrDefault(x => x.ID.ToString() == entry.ProductID);
+                sum += (int)product.Price * entry.Quantity;
+                ProductViewModel pvm = CustomerProductMappers.ProductToViewModel(product);
+                productList.Add(pvm,entry.Quantity);
             }
 
-            return View(productList);
+            BasketViewModel basketViewModel = new BasketViewModel()
+            {
+                ProductsInBasket = productList,
+                Sum = sum
+            };
+
+            basketViewModel.UserId = id;
+
+
+
+            return View(basketViewModel);
         }
 
         //return RedirectToAction("Index", "Basket", new { id = Session.SessionID });

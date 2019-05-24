@@ -1,11 +1,9 @@
-﻿@using Persistence.Model;
+﻿
 
-@model List<Order>
+@model App.Models.ViewModels.OrdersViewModel
 @{
     ViewBag.Title = "My orders";
 }
-
-
 
 <h2>My orders</h2>
 <table class="table">
@@ -18,7 +16,7 @@
     </tr>
 
     @{
-        foreach (var item in Model)
+        foreach (var item in Model.OrdersList)
         {
 
             <tr>

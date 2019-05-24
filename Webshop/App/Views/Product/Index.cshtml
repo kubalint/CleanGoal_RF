@@ -1,5 +1,5 @@
 ﻿@using Persistence.Model;
-@model IEnumerable<Persistence.Model.Product>
+@model App.Models.ViewModels.ProductsViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -26,7 +26,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.ProductList)
     {
         if (item.Available == false)
         {

@@ -7,7 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using App;
+using App.Mappers;
 using App.Models;
+using App.Models.ViewModels;
 using Persistence;
 using Persistence.Model;
 
@@ -21,7 +23,17 @@ namespace App.Controllers
         public ActionResult Index()
         {
             var products = db.Products.Include(p => p.Category).OrderBy(x=>x.Name).ToList();
-            return View(products);
+
+            ProductsViewModel productsViewModel = new ProductsViewModel();
+
+            foreach (var product in products)
+            {
+                ProductViewModel pvm = CustomerProductMappers.ProductToViewModel(product);
+                pvm.Photo = CustomerProductMappers.PhotoToViewModel(product.Photo);
+                productsViewModel.ProductList.Add(pvm);
+            }
+            
+            return View(productsViewModel);
         }
 
         public ActionResult Name(string urlFriendlyName)
@@ -47,11 +59,14 @@ namespace App.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Product product = db.Products.Find(id);
+
             if (product == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+
+            ProductViewModel pvm = CustomerProductMappers.ProductToViewModel(product);
+            return View(pvm);
         }
 
         // POST: Product/AddToBasket

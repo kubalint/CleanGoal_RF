@@ -13,48 +13,53 @@ namespace App.Models
 {
     public class HelperMethods
     {
-        public static Dictionary<Product,int> GetBasketEntriesToId(string id)
+        public static Dictionary<Product, int> GetBasketEntriesToId(string id)
         {
             Dictionary<Product, int> productList = new Dictionary<Product, int>();
-
+            //StoreContext db = new StoreContext();
             using (StoreContext db = new StoreContext())
             {
                 List<BasketEntry> basketEntries = db.BasketEntries.Where(x => x.UserID == id).ToList();
-                
+
                 foreach (BasketEntry entry in basketEntries)
                 {
                     Product product = db.Products.Where(x => x.ID.ToString() == entry.ProductID).FirstOrDefault();
                     productList.Add(product, entry.Quantity);
                 }
             }
-           
+
+            
+
+
             return productList;
         }
 
         public static Dictionary<Product, int> GetOrderListFromId(string id, string orderId)
         {
             Dictionary<Product, int> productList = new Dictionary<Product, int>();
+            StoreContext db = new StoreContext();
+            //using (StoreContext db = new StoreContext())
 
-            using (StoreContext db = new StoreContext())
+            Order order = db.Orders.SingleOrDefault(x => x.UserID == id && x.OrderId == orderId);
+
+            foreach (OrderItem item in order.Items)
             {
-                Order order = db.Orders.SingleOrDefault(x => x.UserID == id && x.OrderId==orderId);
-                
-                foreach (OrderItem item in order.Items)
-                {
-                    Product product = db.Products.FirstOrDefault(x => x.ID.ToString() == item.ProductID);
-                    productList.Add(product, item.Quantity);
-                }
+                Product product = db.Products.FirstOrDefault(x => x.ID.ToString() == item.ProductID);
+                productList.Add(product, item.Quantity);
             }
-            
+
+
             return productList;
         }
 
         public static string GetUserID(IPrincipal user, HttpSessionStateBase session)
         {
+
             if (user.Identity.IsAuthenticated)
             {
                 return user.Identity.GetUserId();
-            } else
+            }
+            else
             {
                 return session.SessionID;
             }
@@ -62,7 +67,7 @@ namespace App.Models
 
         public static void CopyBasketEntries(string userID, HttpSessionStateBase session)
         {
-            
+
             using (StoreContext db = new StoreContext())
             {
                 List<BasketEntry> basketEntries = db.BasketEntries.Where(x => x.UserID == session.SessionID).ToList();
@@ -109,11 +114,11 @@ namespace App.Models
 
 
             }
-            
+
         }
 
 
-        
+
 
     }
 }

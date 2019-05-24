@@ -1,5 +1,5 @@
 ﻿@using Persistence.Model;
-@model Persistence.Model.Product
+@model App.Models.ViewModels.ProductViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -49,9 +49,9 @@
 
         <dd>
             @{
-                if (Model.PhotoID != null)
+                if (Model.PhotoId != null)
                 {
-                    <img src="@Url.Action("GetImage", "Products", new {id=Model.PhotoID})" height="200">
+                    <img src="@Url.Action("GetImage", "Products", new {id=Model.PhotoId})" height="200">
                 }
                 else
                 {

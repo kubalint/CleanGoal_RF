@@ -1,6 +1,6 @@
-﻿@using Persistence.Model;
+﻿
 @using App.Models;
-@model Order
+@model App.Models.ViewModels.OrderViewModel
 @{
     ViewBag.Title = "ViewDetails";
 
@@ -14,10 +14,6 @@
 <h5>Date: @Model.Date.ToShortDateString()</h5>
 <h5>Status: @Model.Status</h5>
 
-@{
-    Dictionary<Product, int> products = HelperMethods.GetOrderListFromId(HelperMethods.GetUserID(User, Session), Model.OrderId);
-
-    int sum = (int)products.Keys.Sum(x => x.Price);
 
     <table class="table">
 
@@ -27,29 +23,29 @@
             <th>Price</th>
         </tr>
 
-        @foreach (KeyValuePair<Product, int> entry in products)
+        @foreach (var entry in Model.Items.Keys)
         {
         <tr>
             <td>
-                @entry.Key.Name
+                @entry.Name
             </td>
 
             <td>
-                @entry.Value
+                @entry.Quantity
             </td>
 
             <td>
-                @entry.Key.Price
+                @entry.Price
             </td>
 
 
         </tr>
         }
-        <tr><td colspan="3" align="right">@sum  $</td></tr>
+        <tr><td colspan="3" align="right">@Model.Sum  $</td></tr>
 
     </table>
 
 
-}
+
 
 
