@@ -7,6 +7,8 @@ using App.Models;
 using Persistence;
 using Persistence.Model;
 using System.Data.Entity;
+using App.Mappers;
+using App.Models.ViewModels;
 
 
 namespace App.Controllers
@@ -80,7 +82,14 @@ namespace App.Controllers
 
             var orderList = db.Orders.Where(x => x.UserID == id).ToList();
 
-            return View(orderList);
+            OrdersViewModel toView = new OrdersViewModel();
+            
+            foreach (var order in orderList)
+            {
+                toView.OrdersList.Add(CustomerOrderMappers.OrderToViewModel(order));
+            }
+            
+            return View(toView);
         }
 
         public ActionResult Details(string id)
@@ -94,7 +103,10 @@ namespace App.Controllers
                 return HttpNotFound();
             }
 
-            return View(order);
+            OrderViewModel ovm = CustomerOrderMappers.OrderToViewModel(order);
+            
+
+            return View(ovm);
         }
 
     }

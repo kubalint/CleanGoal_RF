@@ -1,24 +1,9 @@
 ﻿@using App.Models;
 
 @using Persistence.Model;
-@model Dictionary<Product, int>
+@model App.Models.ViewModels.BasketViewModel
 @{
     ViewBag.Title = "Index";
-}
-
-@{
-    string userID = HelperMethods.GetUserID(User, Session);
-
-    double sum = 0;
-
-    foreach (KeyValuePair<Product, int> item in Model)
-    {
-        sum += item.Key.Price * item.Value;
-    }
-
-    int SUM = (int)sum;
-
-
 }
 
 
@@ -42,7 +27,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.ProductsInBasket)
     {
         <tr>
             <td>
@@ -66,11 +51,11 @@
     }
 
     <tr>
-        <th colspan="4" class="sum">@SUM $</th>
+        <th colspan="4" class="sum">@Model.Sum $</th>
     </tr>
     <tr>
         <th colspan="4" class="sum">
-            @Html.ActionLink("CHECKOUT", "OrderProducts", new { id = userID })
+            @Html.ActionLink("CHECKOUT", "OrderProducts", new { id = Model.UserId })
             @Html.ActionLink("EMPTY BASKET", "EmptyBasket")
         </th>
     </tr>

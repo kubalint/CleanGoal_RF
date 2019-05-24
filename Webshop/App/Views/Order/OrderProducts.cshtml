@@ -1,0 +1,105 @@
+﻿@using Persistence.Model
+@using App.Models
+@using App.Models.ViewModels
+
+
+@model App.Models.ViewModels.OrderProductsViewModel
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Shipping information</h2>
+
+<div id="formOuterBox">
+    <div class="formInnerBox">
+        <section id="form">
+            @using (Html.BeginForm("Index", "Order"))
+            {
+                @Html.AntiForgeryToken()
+
+                <div>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div>
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div>
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div>
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div>
+                            <input id="formInputButton" type="submit" value="Submit order" />
+                        </div>
+                    </div>
+                   
+                </div>
+            }
+
+        </section>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Unit Price
+        </th>
+        <th>
+            Quantity
+        </th>
+    </tr>
+
+    @foreach (KeyValuePair<ProductViewModel, int> item in Model.Basket.ProductsInBasket)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Key.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Key.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+        </tr>
+    }
+    <tr>
+        <td colspan="3" align="right">@Model.Basket.Sum $</td>
+    </tr>
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

@@ -1,5 +1,5 @@
-﻿@using Persistence.Model;
-@model IEnumerable<ProductCategory>
+﻿
+@model App.Models.ViewModels.CategoriesViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -12,15 +12,15 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryId)
+            CategoryId
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
+            CategoryName
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.CategoryList)
     {
         if (item.CategoryId == 4)
         {

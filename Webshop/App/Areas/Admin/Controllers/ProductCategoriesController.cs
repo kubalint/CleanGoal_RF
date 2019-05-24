@@ -7,7 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using App;
+using App.Mappers;
 using App.Models;
+using App.Models.ViewModels;
 using Persistence;
 using Persistence.Model;
 
@@ -20,7 +22,16 @@ namespace App.Areas.Admin.Controllers
         // GET: Admin/ProductCategories
         public ActionResult Index()
         {
-            return View(db.ProductCategories.ToList());
+            var prodCategories = db.ProductCategories.ToList();
+
+            CategoriesViewModel cvm = new CategoriesViewModel();
+
+            foreach (var category in prodCategories)
+            {
+                cvm.CategoryList.Add(AdminCategoryMappers.CategoryToViewModel(category));
+            }
+
+            return View(cvm);
         }
 
         // GET: Admin/ProductCategories/Details/5
@@ -35,7 +46,11 @@ namespace App.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(productCategory);
+
+            CategoryViewModel cvm = AdminCategoryMappers.CategoryToViewModel(productCategory);
+
+
+            return View(cvm);
         }
 
         // GET: Admin/ProductCategories/Create

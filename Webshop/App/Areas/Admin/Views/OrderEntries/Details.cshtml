@@ -1,7 +1,8 @@
-﻿@using Persistence.Model;
+﻿@using System.Linq
+@using Persistence.Model;
 @using App.Models;
 @using Persistence
-@model List<OrderItem>
+@model App.Models.ViewModels.OrderViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -28,47 +29,42 @@
     </tr>
    
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Items)
      {
 
-         if (item.Status == OrderStatus.Deleted)
+         if (item.Key.Status == OrderStatus.Deleted)
          {
              continue;
          }
 
-         bool modifyable = item.Status == OrderStatus.Active;
+         bool modifyable = item.Key.Status == OrderStatus.Active;
 
-         string productName = "";
-         using (StoreContext db = new StoreContext())
-         {
-             Product product = db.Products.Where(x => x.ID.ToString() == item.ProductID).FirstOrDefault();
-             productName = product.Name;
-         }
+         
          <tr>
              <td>
-                 @productName
+                 @item.Key.Name
              </td>
 
              <td>
-                 @Html.DisplayFor(modelItem => item.Quantity)
+                 @Html.DisplayFor(modelItem => item.Key.Quantity)
                  @if (modifyable)
                  {
-                     @Html.ActionLink("-", "DecreaseQuantity", new { id = item.ProductID, orderId = @ViewBag.orderID })
-                     @Html.ActionLink("+", "IncreaseQuantity", new { id = item.ProductID, orderId = @ViewBag.orderID })
+                     @Html.ActionLink("-", "DecreaseQuantity", new { id = item.Key.ProductID, orderId = ViewBag.OrderId })
+                     @Html.ActionLink("+", "IncreaseQuantity", new { id = item.Key.ProductID, orderId = ViewBag.OrderId })
 
                  }
              </td>
              <td>
-                 @Html.DisplayFor(modelItem => item.Price)
+                 @Html.DisplayFor(modelItem => item.Key.Price)
              </td>
              <td>
-                 @Html.DisplayFor(modelItem => item.Status)
+                 @Html.DisplayFor(modelItem => item.Key.Status)
              </td>
              @{
-                 if (item.Status!=OrderStatus.Delivered)
+                 if (item.Key.Status!=OrderStatus.Delivered)
                  {
                      <td>
-                         @Html.ActionLink("Delete", "DeleteEntry", new { id = item.ProductID, orderId = @ViewBag.orderID })
+                         @Html.ActionLink("Delete", "DeleteEntry", new { id = item.Key.ProductID, orderId = ViewBag.OrderId })
                      </td>
                  }
              }
