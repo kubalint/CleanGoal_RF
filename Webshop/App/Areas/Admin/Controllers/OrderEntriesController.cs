@@ -7,7 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using App;
+using App.Mappers;
 using App.Models;
+using App.Models.ViewModels;
 using Persistence;
 using Persistence.Model;
 
@@ -21,8 +23,10 @@ namespace App.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var orders = db.Orders.ToList().OrderByDescending(x=>x.Date).ToList();
+
+            OrdersViewModel ovm = CustomerOrderMappers.OrdersToViewModel(orders);
             
-            return View(orders);
+            return View(ovm);
 
         }
 
@@ -40,15 +44,20 @@ namespace App.Areas.Admin.Controllers
                     toView.Add(order);
                 } 
             }
+            
+            OrdersViewModel ovm = CustomerOrderMappers.OrdersToViewModel(toView);
 
-            return View("Index", toView);
+
+            return View("Index", ovm);
         }
 
 
         public ActionResult DecreaseQuantity(string id, string orderId)
         {
-            Order order = db.Orders.Include(x => x.Items).Single(x => x.OrderId == orderId);
-            var item = order.GetItemByProductId(id);
+            Order order = db.Orders.Where(x => x.OrderId == orderId)?.FirstOrDefault();
+            //var item = order.GetItemByProductId(id);
+            OrderItem item = order.Items.SingleOrDefault(x => x.ProductID == id);
+
             if (item.Quantity > 1)
             {
                 item.Quantity--;
@@ -60,8 +69,9 @@ namespace App.Areas.Admin.Controllers
 
         public ActionResult IncreaseQuantity(string id, string orderId)
         {
-            Order order = db.Orders.Include(x => x.Items).Single(x => x.OrderId == orderId);
-            var item = order.GetItemByProductId(id);
+            Order order = db.Orders.Where(x => x.OrderId == orderId)?.FirstOrDefault();
+            //var item = order.GetItemByProductId(id);
+            OrderItem item = order.Items.SingleOrDefault(x => x.ProductID == id);
 
             item.Quantity++;
             db.SaveChanges();
@@ -78,16 +88,19 @@ namespace App.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            List<OrderItem> orderItems =
-                db.Orders.Include(x => x.Items).SingleOrDefault(x => x.OrderId == id)?.Items.ToList();
-            if (orderItems == null)
+            Order order = db.Orders.FirstOrDefault(x => x.OrderId == id);
+            OrderViewModel ovm = CustomerOrderMappers.OrderToViewModel(order);
+
+            //List<OrderItem> orderItems =
+            //    db.Orders.Include(x => x.Items).SingleOrDefault(x => x.OrderId == id)?.Items.ToList();
+            if (ovm.Items == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.orderID = id;
-
-            return View(orderItems);
+            ViewBag.OrderId = id;
+            
+            return View(ovm);
         }
 
         public ActionResult DeleteEntry(string id, string orderId)

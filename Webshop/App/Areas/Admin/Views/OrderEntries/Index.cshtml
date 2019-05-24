@@ -1,5 +1,5 @@
 ﻿@using Persistence.Model;
-@model List<Order>
+@model App.Models.ViewModels.OrdersViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -45,7 +45,7 @@
 
 
 
-    @foreach (Order entry in Model)
+    @foreach (var entry in Model.OrdersList)
     {
         var date = entry.Date.ToShortDateString();
         var firstname = entry.FirstName;

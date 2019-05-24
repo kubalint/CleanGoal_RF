@@ -10,6 +10,19 @@ namespace App.Mappers
 {
     public static class CustomerOrderMappers
     {
+        public static OrdersViewModel OrdersToViewModel(List<Order> ordersList)
+        {
+            OrdersViewModel toReturn = new OrdersViewModel();
+
+            foreach (var order in ordersList)
+            {
+                OrderViewModel ovm = OrderToViewModel(order);
+                toReturn.OrdersList.Add(ovm);
+            }
+
+            return toReturn;
+        }
+
         public static OrderViewModel OrderToViewModel(Order order)
         {
             OrderViewModel toReturn = new OrderViewModel()

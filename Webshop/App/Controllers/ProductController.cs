@@ -29,7 +29,10 @@ namespace App.Controllers
             foreach (var product in products)
             {
                 ProductViewModel pvm = CustomerProductMappers.ProductToViewModel(product);
-                pvm.Photo = CustomerProductMappers.PhotoToViewModel(product.Photo);
+                if (product.PhotoID != null)
+                {
+                    pvm.Photo = CustomerProductMappers.PhotoToViewModel(product.Photo);
+                }
                 productsViewModel.ProductList.Add(pvm);
             }
             
@@ -66,6 +69,7 @@ namespace App.Controllers
             }
 
             ProductViewModel pvm = CustomerProductMappers.ProductToViewModel(product);
+            
             return View(pvm);
         }
 

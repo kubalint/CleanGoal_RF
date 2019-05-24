@@ -10,6 +10,8 @@ using App;
 using App.Models;
 using Persistence;
 using Persistence.Model;
+using App.Models.ViewModels;
+using App.Mappers;
 
 namespace App.Areas.Admin.Controllers
 {
@@ -21,6 +23,22 @@ namespace App.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var products = db.Products.Include(p => p.Category).Include(p => p.Photo).OrderBy(x=>x.CategoryID).ThenBy(x=>x.Name);
+            //var products = db.Products.Include(p => p.Category).OrderBy(x => x.Name).ToList();
+
+            ProductsViewModel productsViewModel = new ProductsViewModel();
+
+            foreach (var product in products)
+            {
+                ProductViewModel pvm = CustomerProductMappers.ProductToViewModel(product);
+                if (product.PhotoID != null)
+                {
+                    pvm.Photo = CustomerProductMappers.PhotoToViewModel(product.Photo);
+                }
+                productsViewModel.ProductList.Add(pvm);
+            }
+
+            return View(productsViewModel);
+
             return View(products.ToList());
         }
 
@@ -32,11 +50,15 @@ namespace App.Areas.Admin.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Product product = db.Products.Find(id);
+
+          
             if (product == null)
             {
                 return HttpNotFound();
             }
-            return View(product);
+
+            ProductViewModel pvm = CustomerProductMappers.ProductToViewModel(product);
+            return View(pvm);
         }
 
         public FileContentResult GetImage(Guid id)
@@ -89,12 +111,10 @@ namespace App.Areas.Admin.Controllers
                 return RedirectToAction("Index");
 
             }
-
-
-
-
+            
             ViewBag.CategoryID = new SelectList(db.ProductCategories, "CategoryId", "CategoryName", product.CategoryID);
             ViewBag.PhotoID = new SelectList(db.Photos, "ID", "MimeType", product.PhotoID);
+            
             return View(product);
         }
 

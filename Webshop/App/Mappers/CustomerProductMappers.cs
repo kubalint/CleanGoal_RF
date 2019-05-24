@@ -16,13 +16,17 @@ namespace App.Mappers
                 ID = product.ID,
                 Name = product.Name,
                 Category = CategoryToViewModel(product.Category),
-                Photo = PhotoToViewModel(product.Photo),
                 Available = product.Available,
                 Description = product.Description,
                 Price = product.Price,
                 PhotoId = product.PhotoID
 
             };
+
+            if (product.PhotoID != null)
+            {
+                toReturn.Photo = PhotoToViewModel(product.Photo);
+            }
             
             return toReturn;
             

@@ -203,6 +203,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mappers\AdminCategoryMappers.cs" />
     <Compile Include="Mappers\CustomerOrderMappers.cs" />
     <Compile Include="Mappers\CustomerProductMappers.cs" />
     <Compile Include="Migrations\201905150907263_InitialCreate.cs" />
