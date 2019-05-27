@@ -1,14 +1,49 @@
-﻿@{
+﻿@model App.Models.ViewModels.ProductsViewModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="container">
     <div>
-        <div class="leftside"><img src="~/Images/IndexImages/cama.jpg" alt="img" class="container-img" /></div>
+        <div class="leftside">
+            <img src="~/Images/IndexImages/cama.jpg" alt="img" class="container-img" />
+        </div>
         <div class="rightside">
             <div id="lookbook">
-                <h1>Offers</h1>
-                <p>...</p>
+                <h1>Best Sellers</h1>
+                <br>
+                <p>
+                    The possibilities of our new collection truly come alive as we begin to play, to place and to create our visual universe.
+                </p>
+                <br><br>
+                <div class="slideshow-container">
+
+                    @{ foreach (var item in Model.ProductList)
+                        {
+                            <a href="@Url.Action("Details", "Product", new { id = item.ID })">
+                                <div class="mySlides fade">
+                                    <img src="@Url.Action("GetImage", "Products", new { id = item.PhotoId })" style="width:100%" alt="img">
+                                    <div class="text">@item.Name</div>
+                                </div>
+                            </a>
+                        }
+                    }
+
+                </div>
+                <br>
+
+                <div style="text-align:center">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+
+                <br><br>
+                <p>
+                    Saturated with elegance, freshness and minimalism, our creative universe emanates The New Icons in a new Scandinavian setting.
+                </p>
             </div>
         </div>
     </div>
@@ -16,10 +51,17 @@
         <div class="leftside">
             <div id="lookbook">
                 <h1>New Scandinavian Design</h1>
+                <br />
+                <p>
+                        Perfection is not a look. It’s a feeling.
+                </p>
+                <br>
                 <p>
                     Our team of award-winning designers put all of their soul into the design of our unique collections, which are filled with personality and love. We hand-make each and every design for you and your style, and we have thousands of options.  We have no big warehouses and no old stock. We have only perfectly customized products which suit your preferences. Hand-made and delivered directly to your front door.
+                </p>
+                <br />
+                <p>
                     Our European and Danish suppliers hand make every single design from the finest materials such as solid wood, wool, metallics, marble, leather and love.
-                    When you visit our stores, we excite all your senses with inspiring installations, soft wool sofas, cool mixtapes, organic coffee, wonderful scents and of course the best in New Scandinavian Design.
                 </p>
             </div>
         </div>
@@ -29,30 +71,16 @@
         <div class="leftside"><img src="~/Images/IndexImages/mesa.jpg" alt="img" class="container-img" /></div>
         <div class="rightside">
             <div id="lookbook">
-                <h1>The Lookbook</h1>
+                <h1>With great design comes great responsibility</h1>
+                <br />
                 <p>
-                    The possibilities of our new collection truly come alive as we begin to play, to place and to create our visual universe. Saturated with elegance, freshness and minimalism, our creative universe emanates The New Icons in a new Scandinavian setting.
+                    We don’t just care about our designs; we care about how they come to be. We are picky when it comes to materials, craftsmanship and sustainability. Materials must be fine and luxurious, crafted environmentally right and socially responsible. Our leather is traceable and contains no harmful chemicals. We use only feathers from animal production. Our wood adheres to the EU timber regulation, EUTR, and all our fabrics are dyed with natural and biodegradable colour.
+                </p>
+                <br>
+                <p>
+                    To us, New Scandinavian Design is not just what we do, it’s also where we do it. The majority of our collection is designed and crafted in Denmark and Europe. More than 20% of our volume is produced in Denmark and more than 70% in other European countries.
                 </p>
             </div>
-            <div class="mySlides" id="categorySlide">
-                <img src="~/Images/CategoryImages/mirror.jpg" alt="img" />
-                <div class="caption">Mirror</div>
-            </div>
-            <div class="mySlides">
-                <img src="~/Images/CategoryImages/vase.jpg" alt="img" />
-                <div class="caption">Vase</div>
-            </div>
-            <div class="mySlides">
-                <img src="~/Images/CategoryImages/textil.jpg" alt="img" />
-                <div class="caption">Textil</div>
-            </div>
-            <div class="mySlides">
-                <img src="~/Images/CategoryImages/other.jpg" alt="img" />
-                <div class="caption">Other</div>
-            </div>
-
-            <input type="button" id="categorySlideButton" value="&#10094;" onclick="plusDivs(-1)">
-            <input type="button" id="categorySlideButton" value="&#10095;" onclick="plusDivs(+1)">
         </div>
     </div>
 </div>

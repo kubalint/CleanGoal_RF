@@ -21,54 +21,79 @@
 
 }
 
+<div id="customBackground">
+    <div valign="middle" id="detailView">
+        <h1>Successful order!</h1>
 
-<h2>Successful order!</h2>
+        <table>
+            <tr>
+                <th>Order No.</th>
+                <td>@Model.OrderID</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>@Model.FirstName @Model.LastName</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>@Model.Address</td>
+            </tr>
+            <tr>
+                <th>E-mail address</th>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <th>Date of order</th>
+                <td>@Model.DateOfOrder.ToShortDateString() @Model.DateOfOrder.ToShortTimeString()</td>
+            </tr>
+        </table>
 
-<p>Order No.: @Model.OrderID</p>
-<p>Name: @Model.FirstName @Model.LastName</p>
-<p>Address: @Model.Address</p>
-<p>Email: @Model.Email</p>
-<p>Date: @Model.DateOfOrder.ToShortDateString() @Model.DateOfOrder.ToShortTimeString()</p>
+        <table class="table">
+            <tr>
+                <th></th>
+                <th>
+                    Product Name
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Price
+                </th>
+            </tr>
 
+            @foreach (KeyValuePair<Product, int> item in productList)
+            {
+            <tr>
+                <td>
+                    @if (item.Key.PhotoID != null)
+                    {
+                        <img src="@Url.Action("GetImage", "Products", new { id = item.Key.PhotoID })" width="80">
+                    }
+                    else
+                    {
+                        <img src="~/Images/DefaultImages/defaultProduct.png" width="80">
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Key.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Key.Price)
+                </td>
+            </tr>
 
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>@SUM $</td>
+            </tr>
 
-
-<table class="table">
-    <tr>
-        <th>
-            Product Name
-        </th>
-        <th>
-            Quantity
-        </th>
-        <th>
-            Price
-        </th>
-
-
-        <th></th>
-    </tr>
-
-    @foreach (KeyValuePair<Product, int> item in productList)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Key.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Key.Price)
-            </td>
-
-        </tr>
-
-    }
-    <tr>
-        <td colspan="3" align="right">@SUM  $</td>
-    </tr>
-
-</table>
-
-
+        </table>
+    </div>
+</div>

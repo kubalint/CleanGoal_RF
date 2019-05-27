@@ -1,4 +1,7 @@
-﻿using System;
+﻿using App.Mappers;
+using App.Models.ViewModels;
+using Persistence;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +13,21 @@ namespace App.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            StoreContext db = new StoreContext();
+
+            var products = db.Products.Where(x=>x.PhotoID!=null).ToList();
+            var newestProducts = Enumerable.Reverse(products).Take(4).ToList();
+
+            ProductsViewModel productsViewModel = new ProductsViewModel();
+
+            foreach (var product in newestProducts)
+            {
+                ProductViewModel pvm = CustomerProductMappers.ProductToViewModel(product);
+                pvm.Photo = CustomerProductMappers.PhotoToViewModel(product.Photo);
+                productsViewModel.ProductList.Add(pvm);
+            }
+
+            return View(productsViewModel);
         }
 
         public ActionResult About()

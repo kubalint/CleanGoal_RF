@@ -22,7 +22,8 @@ namespace App.Controllers
         // GET: Product
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Category).OrderBy(x=>x.Name).ToList();
+            var products = db.Products.Include(p => p.Category).Include(p => p.Photo).OrderBy(x => x.CategoryID).ThenBy(x => x.Name);
+            //var products = db.Products.Include(p => p.Category).OrderBy(x=>x.Name).ToList();
 
             ProductsViewModel productsViewModel = new ProductsViewModel();
 
@@ -51,7 +52,6 @@ namespace App.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
         }
 
         // GET: Product/Details/5

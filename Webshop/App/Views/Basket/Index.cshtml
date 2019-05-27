@@ -6,57 +6,72 @@
     ViewBag.Title = "Index";
 }
 
-
-<h2>Basket</h2>
-
-<table>
-    <tr>
-        <th>
-            Name
-        </th>
-        <th>
-            Unit Price
-        </th>
-        <th>
-            Quantity
-        </th>
-        <th>
-
-        </th>
-
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.ProductsInBasket)
-    {
+<div id="customBackground">
+    <table>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Key.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Key.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
+            <th>
+                Photo
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                Unit Price
+            </th>
+            <th></th>
+        </tr>
 
-            <td>
+        @foreach (var item in Model.ProductsInBasket)
+        {
+            <tr>
+                <th>
+                    @if (item.Key.PhotoId != null)
+                    {
+                        <img src="@Url.Action("GetImage", "Products", new { id = item.Key.PhotoId })" width="90">
+                    }
+                    else
+                    {
+                        <img src="~/Images/DefaultImages/defaultProduct.png" width="90">
+                    }
+                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Key.Name)
+                </td>
+                <td>
+                    <a href="@Url.Action("RemoveOne", "Basket", new { id = item.Key.ID })">
+                        <img src="~/Images/Icons/minus.png" height="20" valign="middle" />
+                    </a>
+                    @Html.DisplayFor(modelItem => item.Value)
+                    <a href="@Url.Action("AddOne", "Basket", new { id = item.Key.ID })">
+                        <img src="~/Images/Icons/plus.png" height="20" valign="middle" />
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Key.Price)
+                </td>
+                <td>
+                    <a href="@Url.Action("Delete", "Basket", new { id = item.Key.ID })">
+                        <img src="~/Images/Icons/remove.png" height="30" valign="middle" />
+                    </a>
+                </td>
+            </tr>
+        }
 
-                @Html.ActionLink("+", "AddOne", new { id = item.Key.ID }) |
-                @Html.ActionLink("-", "RemoveOne", new { id = item.Key.ID }) |
-                @Html.ActionLink("Delete item", "Delete", new { id = item.Key.ID })
-
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>@Model.Sum $</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <input type="button" value="CHECKOUT" onclick="location.href='@Url.Action("OrderProducts", "Basket",  new { id = Model.UserId })'" />
+                <input type="button" value="EMPTY BASKET" onclick="location.href='@Url.Action("EmptyBasket", "Basket")'" />
             </td>
         </tr>
-    }
-
-    <tr>
-        <th colspan="4" class="sum">@Model.Sum $</th>
-    </tr>
-    <tr>
-        <th colspan="4" class="sum">
-            @Html.ActionLink("CHECKOUT", "OrderProducts", new { id = Model.UserId })
-            @Html.ActionLink("EMPTY BASKET", "EmptyBasket")
-        </th>
-    </tr>
-</table>
+    </table>
+</div>

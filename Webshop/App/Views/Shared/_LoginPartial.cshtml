@@ -1,37 +1,29 @@
-﻿@*@using Microsoft.AspNet.Identity
-    @if (Request.IsAuthenticated)
-    {
-        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-        {
-        @Html.AntiForgeryToken()
-
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-        </ul>
-        }
-    }
-    else
-    {
-        <ul class="nav navbar-nav navbar-right">
-            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-        </ul>
-    }*@
-
-
+﻿
+@using App.Models;
 @using Microsoft.AspNet.Identity
+
+@{
+    string userID = HelperMethods.GetUserID(User, Session);
+}
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
 
-        @*<span class="hereComesTheWelcomeText">
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </span>*@
+        if (User.IsInRole("customer"))
+            {
+                <li class="menulink">@Html.ActionLink("My Orders", "GetOrders", "Order", new { id = userID }, null)</li>
+                <li class="menulink">@Html.ActionLink("Settings", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+            }
+        
+        if (User.IsInRole("admin"))
+            {
+                <li class="menulink">@Html.ActionLink("Administration", "Index", new { Area = "Admin", Controller = "Products" })</li>
+            }
+        
+
         <li class="menulink"><a href="javascript:document.getElementById('logoutForm').submit()" id="logout">Log out</a></li>
     }
 }

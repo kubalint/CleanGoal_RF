@@ -1,34 +1,39 @@
-﻿
-
-@model App.Models.ViewModels.OrdersViewModel
+﻿@model App.Models.ViewModels.OrdersViewModel
 @{
     ViewBag.Title = "My orders";
 }
 
-<h2>My orders</h2>
-<table class="table">
-    <tr>
-        <td>OrderId</td>
-        <td>Address</td>
-        <td>Date</td>
-        <td>Status</td>
-        <td></td>
-    </tr>
+<div class="container">
+    <div>
+        <div class="leftside">
+            <img src="~/Images/IndexImages/botanique.jpg" alt="img" class="container-img" />
+        </div>
+        <div class="rightside">
+            <div valign="middle" id="myOrdersView">
+                <h1>My orders</h1>
+                <hr>
+                <table class="table">
+                    <tr>
+                        <th>OrderId</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
 
-    @{
-        foreach (var item in Model.OrdersList)
-        {
+                    @{
+                        foreach (var item in Model.OrdersList)
+                        {
 
-            <tr>
-                <td>@item.OrderId</td>
-                <td>@item.Address</td>
-                <td>@item.Date</td>
-                <td>@item.Status</td>
-                <td>@Html.ActionLink("View Details", "Details", new {id = item.OrderId})</td>
-            </tr>
-        }
-    }
-</table>
-
-
-
+                            <tr>
+                                <td>@item.OrderId</td>
+                                <td>@item.Date</td>
+                                <td>@item.Status</td>
+                                <td>@Html.ActionLink("View Details", "Details", new { id = item.OrderId })</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

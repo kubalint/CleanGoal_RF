@@ -22,8 +22,7 @@ namespace App
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                //Product lista a kezdőoldal. Home controller helyett
-                defaults: new { controller = "Product", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

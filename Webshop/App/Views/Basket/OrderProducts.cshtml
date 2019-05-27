@@ -1,13 +1,10 @@
 ﻿@using Persistence.Model
 @using App.Models
-
 @model AnonymShippingInfos
-
 
 @{
     ViewBag.Title = "Index";
 }
-
 @{
     double sum = 0;
 
@@ -17,11 +14,8 @@
     }
 
     int SUM = (int)sum;
-
 }
-
 <h2>Shipping information</h2>
-
 <div id="formOuterBox">
     <div class="formInnerBox">
         <section id="form">
@@ -31,7 +25,6 @@
 
                 <div>
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
                     <div class="form-group">
                         @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div>
@@ -39,7 +32,6 @@
                             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
                     <div class="form-group">
                         @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div>
@@ -47,7 +39,6 @@
                             @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
                     <div class="form-group">
                         @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div>
@@ -55,7 +46,6 @@
                             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
                     <div class="form-group">
                         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div>
@@ -63,7 +53,6 @@
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
                     <div class="form-group">
                         <div>
                             <input id="formInputButton" type="submit" value="Submit order" />
@@ -73,7 +62,6 @@
                     @Html.HiddenFor(x => x.DateOfOrder)
                 </div>
             }
-
         </section>
     </div>
 </div>
@@ -84,10 +72,10 @@
             Name
         </th>
         <th>
-            Unit Price
+            Quantity
         </th>
         <th>
-            Quantity
+            Unit Price
         </th>
     </tr>
 
@@ -98,19 +86,21 @@
                 @Html.DisplayFor(modelItem => item.Key.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Key.Price)
+                @Html.DisplayFor(modelItem => item.Value)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Value)
+                @Html.DisplayFor(modelItem => item.Key.Price)
             </td>
         </tr>
     }
     <tr>
-        <td colspan="3" align="right">@SUM $</td>
+        <td></td>
+        <td></td>
+        <td>@SUM $</td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <input type="button" value="CONTINUE SHOPPING" onclick="location.href='@Url.Action("Index", "Product")'" />
+        </td>
     </tr>
 </table>
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
