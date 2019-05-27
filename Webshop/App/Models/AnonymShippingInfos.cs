@@ -20,6 +20,8 @@ namespace App.Models
         public string Email { get; set; }
         
         public DateTime DateOfOrder { get; set; }
+
+        public bool SaveShipping { get; set; }
         
     }
 }

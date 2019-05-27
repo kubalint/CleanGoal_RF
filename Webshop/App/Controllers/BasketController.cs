@@ -134,6 +134,10 @@ namespace App.Controllers
             dto.OrderID = orderId.ToString();
             ViewBag.ProductList = productList;
 
+            var addresses = db.Shippings.Where(x => x.Email == User.Identity.Name).ToList();
+
+            ViewBag.Shippings = addresses;
+
             return View(dto);
         }
 

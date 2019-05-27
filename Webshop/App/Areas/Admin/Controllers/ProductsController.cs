@@ -38,8 +38,7 @@ namespace App.Areas.Admin.Controllers
             }
 
             return View(productsViewModel);
-
-            return View(products.ToList());
+            
         }
 
         // GET: Admin/Products/Details/5
@@ -157,13 +156,16 @@ namespace App.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(product).State = EntityState.Modified;
-
-                photo.ID = Guid.NewGuid();
-                photo.MimeType = image.ContentType;
-                photo.PhotoFile = new byte[image.ContentLength];
-                image.InputStream.Read(photo.PhotoFile, 0, image.ContentLength);
-                db.Photos.Add(photo);
-                product.PhotoID = photo.ID;
+                
+                if (image != null)
+                {
+                    photo.ID = Guid.NewGuid();
+                    photo.MimeType = image.ContentType;
+                    photo.PhotoFile = new byte[image.ContentLength];
+                    image.InputStream.Read(photo.PhotoFile, 0, image.ContentLength);
+                    db.Photos.Add(photo);
+                    product.PhotoID = photo.ID;
+                }
 
                 db.SaveChanges();
                 return RedirectToAction("Index");

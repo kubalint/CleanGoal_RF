@@ -21,12 +21,45 @@ namespace App.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "FirstName,LastName,Address,Email,DateOfOrder,OrderID")] AnonymShippingInfos dto)
+        public ActionResult Index([Bind(Include = "FirstName,LastName,Address,Email,DateOfOrder,OrderID,SaveShipping")] AnonymShippingInfos dto, FormCollection form)
         {
             StoreContext db = new StoreContext();
             string userID = HelperMethods.GetUserID(User, Session);
             List<OrderItem> itemList = new List<OrderItem>();
             Dictionary<Product, int> productList = HelperMethods.GetBasketEntriesToId(userID);
+
+            string ddl = form["shippingAddress"];
+
+            if (ddl != "")
+            {
+                var shippingInfo = db.Shippings.SingleOrDefault(x => x.FirstName +" "+ x.LastName +" "+ x.Address == ddl);
+                dto.FirstName = shippingInfo.FirstName;
+                dto.LastName = shippingInfo.LastName;
+                dto.Address = shippingInfo.Address;
+            }
+            else
+            {
+                if (dto.SaveShipping)
+                {
+                    var shippingInfo = new ShippingInfos()
+                    {
+                        Address = dto.Address,
+                        Email = User.Identity.Name,
+                        FirstName = dto.FirstName,
+                        LastName = dto.LastName,
+                        ID = Guid.NewGuid()
+                    };
+
+                    db.Shippings.Add(shippingInfo);
+                }
+            }
+
+            if (User.Identity.IsAuthenticated)
+            {
+                dto.Email = User.Identity.Name;
+            }
+
+           
 
             foreach (var entry in productList)
             {
