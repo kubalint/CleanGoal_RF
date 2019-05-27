@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using App.Models;
+using Persistence;
 
 namespace App.Controllers
 {
@@ -50,7 +51,7 @@ namespace App.Controllers
                 _userManager = value;
             }
         }
-
+        
         //
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)

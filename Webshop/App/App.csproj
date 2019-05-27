@@ -199,6 +199,7 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ShippingInfosController.cs" />
     <Compile Include="Controllers\TermekController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -333,6 +334,11 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\GetOrders.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
+    <Content Include="Views\ShippingInfos\Create.cshtml" />
+    <Content Include="Views\ShippingInfos\Delete.cshtml" />
+    <Content Include="Views\ShippingInfos\Details.cshtml" />
+    <Content Include="Views\ShippingInfos\Edit.cshtml" />
+    <Content Include="Views\ShippingInfos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
