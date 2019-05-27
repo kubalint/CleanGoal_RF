@@ -24,7 +24,7 @@ namespace Persistence
         public virtual DbSet<BasketEntry> BasketEntries { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
-
+        public virtual DbSet<ShippingInfos> Shippings { get; set; }
     }
 
     //public class MyEntity

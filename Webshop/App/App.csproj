@@ -214,6 +214,10 @@
     <Compile Include="Migrations\201905240931266_NewDatabase.Designer.cs">
       <DependentUpon>201905240931266_NewDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905271132104_ShippingInfosBevezetese.cs" />
+    <Compile Include="Migrations\201905271132104_ShippingInfosBevezetese.Designer.cs">
+      <DependentUpon>201905271132104_ShippingInfosBevezetese.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AnonymShippingInfos.cs" />
@@ -359,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905240931266_NewDatabase.resx">
       <DependentUpon>201905240931266_NewDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905271132104_ShippingInfosBevezetese.resx">
+      <DependentUpon>201905271132104_ShippingInfosBevezetese.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
