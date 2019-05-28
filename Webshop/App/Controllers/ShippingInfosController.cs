@@ -20,22 +20,7 @@ namespace App.Controllers
         {
             return View(db.Shippings.Where(x=>x.Email==User.Identity.Name).ToList());
         }
-
-        // GET: ShippingInfos/Details/5
-        public ActionResult Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ShippingInfos shippingInfos = db.Shippings.Find(id);
-            if (shippingInfos == null)
-            {
-                return HttpNotFound();
-            }
-            return View(shippingInfos);
-        }
-
+        
         // GET: ShippingInfos/Create
         public ActionResult Create()
         {
@@ -47,11 +32,12 @@ namespace App.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Address,Email")] ShippingInfos shippingInfos)
+        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Address")] ShippingInfos shippingInfos)
         {
             if (ModelState.IsValid)
             {
                 shippingInfos.ID = Guid.NewGuid();
+                shippingInfos.Email = User.Identity.Name;
                 db.Shippings.Add(shippingInfos);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -80,8 +66,10 @@ namespace App.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Address,Email")] ShippingInfos shippingInfos)
+        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Address")] ShippingInfos shippingInfos)
         {
+            shippingInfos.Email = User.Identity.Name;
+
             if (ModelState.IsValid)
             {
                 db.Entry(shippingInfos).State = EntityState.Modified;

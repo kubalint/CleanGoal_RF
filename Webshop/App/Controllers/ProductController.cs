@@ -36,8 +36,32 @@ namespace App.Controllers
                 }
                 productsViewModel.ProductList.Add(pvm);
             }
+
+            ViewBag.Categories = db.ProductCategories.ToList();
             
             return View(productsViewModel);
+        }
+
+        public ActionResult Filter(string id)
+        {
+
+            var products = db.Products.Where(x => x.Category.CategoryName == id);
+
+            ProductsViewModel productsViewModel = new ProductsViewModel();
+
+            foreach (var product in products)
+            {
+                ProductViewModel pvm = CustomerProductMappers.ProductToViewModel(product);
+                if (product.PhotoID != null)
+                {
+                    pvm.Photo = CustomerProductMappers.PhotoToViewModel(product.Photo);
+                }
+                productsViewModel.ProductList.Add(pvm);
+            }
+
+            ViewBag.Categories = db.ProductCategories.ToList();
+
+            return View("Index", productsViewModel);
         }
 
         public ActionResult Name(string urlFriendlyName)
