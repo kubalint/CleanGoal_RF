@@ -50,15 +50,7 @@
                     </div>
                 </div>
 
-                <div>
-                    Choose Address
-                    <div>
-                        @Html.DropDownList("shippingAddress",
-                        new SelectList(ViewBag.Shippings),
-                        "Select Address",
-                        new { @class = "form-control" , @onchange = "disableInputs()" })
-                    </div>
-                </div>
+
                 <div class="shippingDetails">
                     @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
 
@@ -78,9 +70,21 @@
                         </div>
                     </div>
                 }
-                <br />
+
                 @if (User.IsInRole("customer"))
                 {
+                    <br />
+                    <div>
+                        Choose Shipping Details
+                        <div>
+                            @Html.DropDownList("shippingAddress",
+                                new SelectList(ViewBag.Shippings),
+                                "Select Address",
+                                new { @class = "form-control" , @onchange = "disableInputs()" })
+                        </div>
+                    </div>
+
+                    <br />
                     <div class="shippingDetails">
                         @Html.LabelFor(model => model.SaveShipping, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
@@ -91,7 +95,7 @@
                         </div>
                     </div>
                 }
-                <br />
+                
                 <div id="backToForm" style="display:none;">
                     <div>
                         <input type="button" value="GIVE NEW SHIPPING DETAILS" onclick="location.href='@Url.Action("OrderProducts", "Basket",  new { id = @userID })'" />

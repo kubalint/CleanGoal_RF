@@ -30,7 +30,7 @@ namespace App.Controllers
 
             string ddl = form["shippingAddress"];
 
-            if (ddl != "")
+            if (!string.IsNullOrEmpty(ddl))
             {
                 var shippingInfo = db.Shippings.Where(x => x.FirstName +" "+ x.LastName +" "+ x.Address == ddl).SingleOrDefault(x=>x.Email==User.Identity.Name);
                 

@@ -626,7 +626,12 @@ select {
 /*PRODUCT VIEW*/
 
 .product-filter {
-    display: flex;
+    /*display: flex;*/
+    text-align: center;
+    width: 100%;
+    height: auto;
+    float: none;
+    margin: 0 auto;
 }
 
     .product-filter h1 {
@@ -634,12 +639,11 @@ select {
     }
 
 .sort {
-    display: flex;
+    /*display: flex;*/
     text-align: center;
     width: 100%;
     height: auto;
     float: none;
-    justify-content: center;
     margin: 0 auto;
 }
 

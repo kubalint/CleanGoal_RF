@@ -7,17 +7,16 @@
 }
 
 
-<nav class="product-filter">
+<nav role="navigation" class="product-filter">
 
     <div class="sort">
         @foreach (var category in ViewBag.Categories)
         {
             var cat = category as ProductCategory;
 
-            @*<a href="@Url.Action("Filter", "Product", new { id = cat.CategoryName })">@cat.CategoryName</a>*@
+            
             <input type="button" value="@cat.CategoryName" style="background-color:#000000; color:#ffffff;" onclick="location.href='@Url.Action("Filter", "Product", new { id = cat.CategoryName })'" />
         }
-        @*<a href="@Url.Action("Index", "Product")">Remove filter</a>*@
         <input type="button" value="Remove Filter" style="width:auto; background-color:#999999; color:#ffffff;" onclick="location.href='@Url.Action("Index", "Product")'" />
     </div>
 
