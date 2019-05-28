@@ -6,62 +6,80 @@
 
 }
 
-<div id="customBackground">
-    <div valign="middle" id="myOrdersView">
-        <h2>Order No. @Model.OrderId</h2>
+@{
+    string userID = HelperMethods.GetUserID(User, Session);
+}
 
-        <table>
-            <tr>
-                <th>Name</th>
-                <td>@Model.FirstName @Model.LastName</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>@Model.Address</td>
-            </tr>
-            <tr>
-                <th>E-mail address</th>
-                <td>@Model.Email</td>
-            </tr>
-            <tr>
-                <th>Date of order</th>
-                <td>@Model.Date.ToShortDateString() @Model.Date.ToShortTimeString()</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>@Model.Status</td>
-            </tr>
-        </table>
+<div class="container">
+    <div>
+        <div class="leftside">
+            <img src="~/Images/IndexImages/botanique.jpg" alt="img" class="container-img" />
+        </div>
+        <div class="rightside">
+            <div valign="middle" id="myOrdersView">
+                <br />
+                <h2>Order No.</h2>
+                <h1>@Model.OrderId</h1>
+                <br />
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <td>@Model.FirstName @Model.LastName</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>@Model.Address</td>
+                    </tr>
+                    <tr>
+                        <th>E-mail address</th>
+                        <td>@Model.Email</td>
+                    </tr>
+                    <tr>
+                        <th>Date of order</th>
+                        <td>@Model.Date.ToShortDateString() @Model.Date.ToShortTimeString()</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>@Model.Status</td>
+                    </tr>
+                </table>
 
-        <hr/>
+                <hr />
 
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
-            </tr>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
 
-            @foreach (var entry in Model.Items.Keys)
-            {
-                <tr>
-                    <td>
-                        @entry.Name
-                    </td>
-                    <td>
-                        @entry.Quantity
-                    </td>
-                    <td>
-                        @entry.Price
-                    </td>
-                </tr>
-            }
+                    @foreach (var entry in Model.Items.Keys)
+                    {
+                        <tr>
+                            <th>
+                                @entry.Name
+                            </th>
+                            <th>
+                                @entry.Quantity
+                            </th>
+                            <th>
+                                @entry.Price
+                            </th>
+                        </tr>
+                    }
 
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td>@Model.Sum $</td>
-                </tr>
-        </table>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>@Model.Sum $</th>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <input type="button" value="BACK TO LIST" style="background-color:#000000; color:#ffffff;" onclick="location.href='@Url.Action("GetOrders", "Order", new { id = userID })'" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
 </div>

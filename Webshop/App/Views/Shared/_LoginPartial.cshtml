@@ -3,7 +3,7 @@
 @using Microsoft.AspNet.Identity
 
 @{
-    string userID = HelperMethods.GetUserID(User, Session);
+                string userID = HelperMethods.GetUserID(User, Session);
 }
 
 @if (Request.IsAuthenticated)
@@ -13,22 +13,23 @@
         @Html.AntiForgeryToken()
 
         if (User.IsInRole("customer"))
-            {
-                <li class="menulink">@Html.ActionLink("My Orders", "GetOrders", "Order", new { id = userID }, null)</li>
-                <li class="menulink">@Html.ActionLink("Settings", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
-            }
-        
+        {
+            <li class="menulink">@Html.ActionLink("My Orders", "GetOrders", "Order", new { id = userID }, null)</li>
+            <li class="menulink">@Html.ActionLink("Change Password", "ChangePassword", "Manage")</li>
+            <li class="menulink">@Html.ActionLink("Shipping Addresses", "Index", "ShippingInfos")</li>
+        }
+
         if (User.IsInRole("admin"))
-            {
-                <li class="menulink">@Html.ActionLink("Administration", "Index", new { Area = "Admin", Controller = "Products" })</li>
-            }
-        
+        {
+            <li class="menulink">@Html.ActionLink("Administration", "Index", new { Area = "Admin", Controller = "Products" })</li>
+        }
+
 
         <li class="menulink"><a href="javascript:document.getElementById('logoutForm').submit()" id="logout">Log out</a></li>
     }
 }
 else
 {
-    <li class="menulink">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li class="menulink">@Html.ActionLink("Registration", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
     <li class="menulink">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
 }

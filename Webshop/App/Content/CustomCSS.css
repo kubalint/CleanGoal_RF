@@ -16,7 +16,11 @@ body {
 h1 {
     font-size: 30px;
     font-weight: 800;
-    padding-bottom: 10px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .container p {
@@ -273,7 +277,7 @@ a {
 @media (min-width: 768px) {
     .leftside, .rightside {
         width: 50%;
-        float: left;
+        /*float: left;*/
         display: inline-block;
     }
 }
@@ -496,12 +500,12 @@ a {
 th {
     text-align: left;
     padding: 15px;
-    vertical-align: middle;
+    font-weight:600;
 }
 
 td {
+    text-align: left;
     padding: 15px;
-    vertical-align: middle;
 }
 
 table {
@@ -512,7 +516,6 @@ table {
     float: none;
     justify-content: center;
     margin: 0 auto;
-    vertical-align: middle;
 }
 
 tr:last-child {
@@ -525,20 +528,22 @@ td:last-child {
     text-align:center;
 }
 
+#orderedProducts {
+    width:40%;
+}
+
 /*tr:nth-child(2n+0) {
     background-color: #eee;
     border: none;
 }*/
-
 /*Controller -> VIEW */
-
 #viewBody {
     width: 100%;
     height: auto;
     float: none;
     justify-content: center;
     margin: 0 auto;
-    padding-top: 4%;
+    padding-top: 52px;
 }
 
     #viewBody a {
@@ -594,6 +599,16 @@ input[type="button"], input[type=submit] {
     font-size: 14px;
     font-weight: 900;
     border: 0;
+    padding: 10px 10px;
+    width: 300px;
+}
+
+select {
+    background-color: #fff;
+    color: #000;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    border: none;
     padding: 10px 10px;
     width: 300px;
 }

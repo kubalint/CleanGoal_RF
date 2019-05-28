@@ -3,46 +3,29 @@
     ViewBag.Title = "Manage";
 }
 
-<h2>@ViewBag.Title.</h2>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
+<div id="customBackground">
+    <div id="formOuterBox">
+        <div class="formInnerBox">
+            <h1>Change your account settings</h1>
+            <hr>
 
-        <dt>Phone Number:</dt>
-        <dd>
-            @(Model.PhoneNumber ?? "None")
-            @if (Model.PhoneNumber != null)
-            {
-                <br />
-                <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                {
-                    @Html.AntiForgeryToken()
-                    <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                }
-            }
-            else
-            {
-                <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")</text>
-            }
-        </dd>
-
-    </dl>
-
+            <dl class="dl-horizontal">
+                <dt>Password:</dt>
+                <dd>
+                    [
+                    @if (Model.HasPassword)
+                    {
+                        <input type="button" value="CHANGE PASSWORD" onclick="location.href='@Url.Action("ChangePassword", "Manage")'" />
+                    }
+                    else
+                    {
+                        
+                        @Html.ActionLink("Create", "SetPassword")
+                    }
+                    ]
+                </dd>
+            </dl>
+        </div>
+    </div>
 </div>
