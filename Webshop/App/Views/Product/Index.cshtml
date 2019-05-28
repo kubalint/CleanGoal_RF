@@ -1,4 +1,5 @@
 ﻿
+@using Persistence.Model
 @model App.Models.ViewModels.ProductsViewModel
 
 @{
@@ -9,7 +10,13 @@
 <nav class="product-filter">
 
     <div class="sort">
+        @foreach (var category in ViewBag.Categories)
+        {
+            var cat = category as ProductCategory;
 
+            <a href="@Url.Action("Filter", "Product", new { id = cat.CategoryName })">@cat.CategoryName</a>
+        }
+        <a href="@Url.Action("Index", "Product")">Remove filter</a>
     </div>
 
 </nav>

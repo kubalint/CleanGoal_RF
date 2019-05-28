@@ -336,7 +336,6 @@
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\ShippingInfos\Create.cshtml" />
     <Content Include="Views\ShippingInfos\Delete.cshtml" />
-    <Content Include="Views\ShippingInfos\Details.cshtml" />
     <Content Include="Views\ShippingInfos\Edit.cshtml" />
     <Content Include="Views\ShippingInfos\Index.cshtml" />
   </ItemGroup>
