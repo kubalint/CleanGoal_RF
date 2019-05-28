@@ -635,6 +635,12 @@ select {
 
 .sort {
     display: flex;
+    text-align: center;
+    width: 100%;
+    height: auto;
+    float: none;
+    justify-content: center;
+    margin: 0 auto;
 }
 
 .collection-sort {
