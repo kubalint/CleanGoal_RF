@@ -15,6 +15,12 @@
 
     int SUM = (int)sum;
 
+
+
+}
+
+@{
+    string userID = HelperMethods.GetUserID(User, Session);
 }
 
 <h2>Shipping information</h2>
@@ -25,18 +31,18 @@
             {
                 @Html.AntiForgeryToken()
 
-                
+
             <div>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                <div class="form-group">
+                <div class="shippingDetails">
                     @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div>
                         @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="shippingDetails">
                     @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div>
                         @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
@@ -44,58 +50,65 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div>
                     Choose Address
                     <div>
                         @Html.DropDownList("shippingAddress",
                         new SelectList(ViewBag.Shippings),
                         "Select Address",
-                        new { @class = "form-control" , onchange = "DisableInputs()" })
+                        new { @class = "form-control" , @onchange = "disableInputs()" })
                     </div>
                 </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="shippingDetails">
+                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
 
-                        <div>
-                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                        </div>
+                    <div>
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                     </div>
-
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div>
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    }
-
-                    @if (User.IsInRole("customer"))
-                    {
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.SaveShipping, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                <div class="checkbox">
-                                    @Html.EditorFor(model => model.SaveShipping)
-                                    @Html.ValidationMessageFor(model => model.SaveShipping, "", new { @class = "text-danger" })
-                                </div>
-                            </div>
-                        </div>
-                    }
-
-                    <div class="form-group">
-                        <div>
-                            <input id="formInputButton" type="submit" value="Submit order" />
-                        </div>
-                    </div>
-                    @Html.HiddenFor(x => x.OrderID)
-                    @Html.HiddenFor(x => x.DateOfOrder)
                 </div>
+
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <div>
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                 }
-</section>
+                <br />
+                @if (User.IsInRole("customer"))
+                {
+                    <div class="shippingDetails">
+                        @Html.LabelFor(model => model.SaveShipping, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.SaveShipping)
+                                @Html.ValidationMessageFor(model => model.SaveShipping, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                }
+                <br />
+                <div id="backToForm" style="display:none;">
+                    <div>
+                        <input type="button" value="GIVE NEW SHIPPING DETAILS" onclick="location.href='@Url.Action("OrderProducts", "Basket",  new { id = @userID })'" />
+                    </div>
+                </div>
+                <br />
+                <div>
+                    <div>
+                        <input id="formInputButton" type="submit" value="Submit order" />
+                    </div>
+                </div>
+
+                @Html.HiddenFor(x => x.OrderID)
+                @Html.HiddenFor(x => x.DateOfOrder)
+            </div>
+            }
+        </section>
     </div>
 </div>
 
