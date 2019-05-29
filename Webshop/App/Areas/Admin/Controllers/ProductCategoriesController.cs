@@ -9,12 +9,13 @@ using System.Web.Mvc;
 using App;
 using App.Mappers;
 using App.Models;
-using App.Models.ViewModels;
+using App.Models.ViewModels.Product;
 using Persistence;
 using Persistence.Model;
 
 namespace App.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ProductCategoriesController : Controller
     {
         private StoreContext db = new StoreContext();
@@ -28,7 +29,9 @@ namespace App.Areas.Admin.Controllers
 
             foreach (var category in prodCategories)
             {
-                cvm.CategoryList.Add(AdminCategoryMappers.CategoryToViewModel(category));
+                CategoryViewModel categoryViewModel = AdminCategoryMappers.CategoryToViewModel(category);
+
+                cvm.CategoryList.Add(categoryViewModel);
             }
 
             return View(cvm);
@@ -41,15 +44,16 @@ namespace App.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             ProductCategory productCategory = db.ProductCategories.Find(id);
+
             if (productCategory == null)
             {
                 return HttpNotFound();
             }
 
             CategoryViewModel cvm = AdminCategoryMappers.CategoryToViewModel(productCategory);
-
-
+            
             return View(cvm);
         }
 
@@ -60,8 +64,6 @@ namespace App.Areas.Admin.Controllers
         }
 
         // POST: Admin/ProductCategories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CategoryId,CategoryName")] ProductCategory productCategory)
@@ -83,7 +85,9 @@ namespace App.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             ProductCategory productCategory = db.ProductCategories.Find(id);
+
             if (productCategory == null)
             {
                 return HttpNotFound();
@@ -92,8 +96,6 @@ namespace App.Areas.Admin.Controllers
         }
 
         // POST: Admin/ProductCategories/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CategoryId,CategoryName")] ProductCategory productCategory)
@@ -114,7 +116,9 @@ namespace App.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             ProductCategory productCategory = db.ProductCategories.Find(id);
+
             if (productCategory == null)
             {
                 return HttpNotFound();
@@ -127,11 +131,7 @@ namespace App.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            //ProductCategory productCategory = db.ProductCategories.Find(id);
-            //db.ProductCategories.Remove(productCategory);
-            //db.SaveChanges();
-            //return RedirectToAction("Index");
-
+            
             ProductCategory productCategory = db.ProductCategories.Find(id);
             ProductCategory otherCategory = db.ProductCategories.FirstOrDefault(x => x.CategoryName == "Other");
 
@@ -144,6 +144,7 @@ namespace App.Areas.Admin.Controllers
 
             db.ProductCategories.Remove(productCategory);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 

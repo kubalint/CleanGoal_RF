@@ -10,11 +10,12 @@ using App;
 using App.Models;
 using Persistence;
 using Persistence.Model;
-using App.Models.ViewModels;
+using App.Models.ViewModels.Product;
 using App.Mappers;
 
 namespace App.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ProductsController : Controller
     {
         private StoreContext db = new StoreContext();
@@ -23,8 +24,7 @@ namespace App.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var products = db.Products.Include(p => p.Category).Include(p => p.Photo).OrderBy(x=>x.CategoryID).ThenBy(x=>x.Name);
-            //var products = db.Products.Include(p => p.Category).OrderBy(x => x.Name).ToList();
-
+           
             ProductsViewModel productsViewModel = new ProductsViewModel();
 
             foreach (var product in products)
@@ -48,21 +48,24 @@ namespace App.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
 
-          
+            Product product = db.Products.Find(id);
+            
             if (product == null)
             {
                 return HttpNotFound();
             }
 
             ProductViewModel pvm = CustomerProductMappers.ProductToViewModel(product);
+
             return View(pvm);
         }
 
+        [AllowAnonymous]
         public FileContentResult GetImage(Guid id)
         {
             Photo photo = db.Photos.Find(id);
+
             if (photo != null)
             {
                 return File(photo.PhotoFile, photo.MimeType);
@@ -82,8 +85,6 @@ namespace App.Areas.Admin.Controllers
         }
 
         // POST: Admin/Products/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,CategoryID,Name,Description,Price,Available,PhotoID")] Product product, HttpPostedFileBase image)
@@ -135,22 +136,11 @@ namespace App.Areas.Admin.Controllers
         }
 
         // POST: Admin/Products/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,CategoryID,Name,Description,Price,UrlFriendlyName,Available,PhotoID")] Product product, HttpPostedFileBase image)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    db.Entry(product).State = EntityState.Modified;
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
-            //ViewBag.CategoryID = new SelectList(db.ProductCategories, "CategoryId", "CategoryName", product.CategoryID);
-            //ViewBag.PhotoID = new SelectList(db.Photos, "ID", "MimeType", product.PhotoID);
-            //return View(product);
-
+            
             Photo photo = new Photo();
 
             if (ModelState.IsValid)
@@ -170,8 +160,10 @@ namespace App.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             ViewBag.CategoryID = new SelectList(db.ProductCategories, "CategoryId", "CategoryName", product.CategoryID);
             ViewBag.PhotoID = new SelectList(db.Photos, "ID", "MimeType", product.PhotoID);
+
             return View(product);
         }
 

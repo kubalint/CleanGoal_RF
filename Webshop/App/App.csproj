@@ -226,9 +226,16 @@
     <Compile Include="Models\HelperMethods.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ViewModels\CustomerBasketViewModels.cs" />
-    <Compile Include="Models\ViewModels\CustomerOrderViewModels.cs" />
-    <Compile Include="Models\ViewModels\CustomerProductViewModels.cs" />
+    <Compile Include="Models\ViewModels\Basket\BasketViewModel.cs" />
+    <Compile Include="Models\ViewModels\Order\OrderItemViewModel.cs" />
+    <Compile Include="Models\ViewModels\Order\OrderProductsViewModel.cs" />
+    <Compile Include="Models\ViewModels\Order\OrdersViewModel.cs" />
+    <Compile Include="Models\ViewModels\Order\OrderViewModel.cs" />
+    <Compile Include="Models\ViewModels\Product\CategoriesViewModel.cs" />
+    <Compile Include="Models\ViewModels\Product\CategoryViewModel.cs" />
+    <Compile Include="Models\ViewModels\Product\PhotoViewModel.cs" />
+    <Compile Include="Models\ViewModels\Product\ProductsViewModel.cs" />
+    <Compile Include="Models\ViewModels\Product\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

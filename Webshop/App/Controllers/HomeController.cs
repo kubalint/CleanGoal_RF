@@ -1,5 +1,5 @@
 ﻿using App.Mappers;
-using App.Models.ViewModels;
+using App.Models.ViewModels.Product;
 using Persistence;
 using System;
 using System.Collections.Generic;

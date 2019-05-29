@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using App;
 using App.Mappers;
 using App.Models;
-using App.Models.ViewModels;
+using App.Models.ViewModels.Product;
 using Persistence;
 using Persistence.Model;
 

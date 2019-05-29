@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using App.Models.ViewModels;
+using App.Models.ViewModels.Order;
 using Persistence;
 using Persistence.Model;
 

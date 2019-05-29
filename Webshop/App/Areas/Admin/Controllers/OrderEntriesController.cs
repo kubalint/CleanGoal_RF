@@ -9,12 +9,13 @@ using System.Web.Mvc;
 using App;
 using App.Mappers;
 using App.Models;
-using App.Models.ViewModels;
+using App.Models.ViewModels.Order;
 using Persistence;
 using Persistence.Model;
 
 namespace App.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class OrderEntriesController : Controller
     {
         private StoreContext db = new StoreContext();
@@ -55,7 +56,7 @@ namespace App.Areas.Admin.Controllers
         public ActionResult DecreaseQuantity(string id, string orderId)
         {
             Order order = db.Orders.Where(x => x.OrderId == orderId)?.FirstOrDefault();
-            //var item = order.GetItemByProductId(id);
+
             OrderItem item = order.Items.SingleOrDefault(x => x.ProductID == id);
 
             if (item.Quantity > 1)
@@ -69,14 +70,16 @@ namespace App.Areas.Admin.Controllers
 
         public ActionResult IncreaseQuantity(string id, string orderId)
         {
-            Order order = db.Orders.Where(x => x.OrderId == orderId)?.FirstOrDefault();
-            //var item = order.GetItemByProductId(id);
-            OrderItem item = order.Items.SingleOrDefault(x => x.ProductID == id);
+            Order order = db.Orders.FirstOrDefault(x => x.OrderId == orderId);
 
-            item.Quantity++;
-            db.SaveChanges();
+            OrderItem item = order?.Items.SingleOrDefault(x => x.ProductID == id);
 
-
+            if (item != null)
+            {
+                item.Quantity++;
+                db.SaveChanges();
+            }
+            
             return RedirectToAction("Details", new { id = orderId });
         }
 
@@ -91,8 +94,7 @@ namespace App.Areas.Admin.Controllers
             Order order = db.Orders.FirstOrDefault(x => x.OrderId == id);
             OrderViewModel ovm = CustomerOrderMappers.OrderToViewModel(order);
 
-            //List<OrderItem> orderItems =
-            //    db.Orders.Include(x => x.Items).SingleOrDefault(x => x.OrderId == id)?.Items.ToList();
+           
             if (ovm.Items == null)
             {
                 return HttpNotFound();
@@ -132,38 +134,7 @@ namespace App.Areas.Admin.Controllers
             }
 
         }
-
-        //// GET: Admin/OrderEntries/Edit/5
-        //public ActionResult Edit(string id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Order orderEntry = db.Orders.Find(id);
-        //    if (orderEntry == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(orderEntry);
-        //}
-
-        //// POST: Admin/OrderEntries/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "OrderId,UserID,ProductID,Quantity,Price,FirstName,LastName,Address,Email,Date,Status")] Order orderEntry)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(orderEntry).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(orderEntry);
-        //}
-
+        
         public ActionResult Delete(string id)
         {
             if (id == null)

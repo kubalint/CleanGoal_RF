@@ -8,7 +8,7 @@ using Persistence;
 using Persistence.Model;
 using System.Data.Entity;
 using App.Mappers;
-using App.Models.ViewModels;
+using App.Models.ViewModels.Order;
 
 
 namespace App.Controllers

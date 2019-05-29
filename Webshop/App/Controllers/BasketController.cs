@@ -7,8 +7,10 @@ using System.Web;
 using System.Web.Mvc;
 using App.Mappers;
 using App.Models.ViewModels;
+using App.Models.ViewModels.Product;
 using Persistence;
 using Persistence.Model;
+using App.Models.ViewModels.Basket;
 
 namespace App.Controllers
 {
