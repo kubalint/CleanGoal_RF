@@ -32,7 +32,9 @@ namespace App.Controllers
 
             if (!string.IsNullOrEmpty(ddl))
             {
-                var shippingInfo = db.Shippings.Where(x => x.FirstName +" "+ x.LastName +" "+ x.Address == ddl).SingleOrDefault(x=>x.Email==User.Identity.Name);
+                var shippingInfo = db.Shippings
+                    .Where(x => x.FirstName +" "+ x.LastName +" "+ x.Address == ddl)
+                    .SingleOrDefault(x=>x.Email==User.Identity.Name);
                 
                 dto.FirstName = shippingInfo.FirstName;
                 dto.LastName = shippingInfo.LastName;
