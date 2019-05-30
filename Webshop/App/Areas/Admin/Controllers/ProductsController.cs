@@ -41,26 +41,6 @@ namespace App.Areas.Admin.Controllers
             
         }
 
-        // GET: Admin/Products/Details/5
-        public ActionResult Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            Product product = db.Products.Find(id);
-            
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-
-            ProductViewModel pvm = CustomerProductMappers.ProductToViewModel(product);
-
-            return View(pvm);
-        }
-
         [AllowAnonymous]
         public FileContentResult GetImage(Guid id)
         {

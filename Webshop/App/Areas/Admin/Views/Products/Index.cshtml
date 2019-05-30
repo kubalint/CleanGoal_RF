@@ -44,7 +44,7 @@
                     }
                     else
                     {
-                        <img src="~/Images/DefaultImages/defaultProduct.png" width="90">
+                        <img src="~/Images/DefaultImages/defaultIMG.png" width="90">
                     }
                 }
             </td>
@@ -64,8 +64,7 @@
                 @Html.DisplayFor(modelItem => item.Available)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ID })
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID })
             </td>
         </tr>
     }

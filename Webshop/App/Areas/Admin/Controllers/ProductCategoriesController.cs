@@ -37,26 +37,6 @@ namespace App.Areas.Admin.Controllers
             return View(cvm);
         }
 
-        // GET: Admin/ProductCategories/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            ProductCategory productCategory = db.ProductCategories.Find(id);
-
-            if (productCategory == null)
-            {
-                return HttpNotFound();
-            }
-
-            CategoryViewModel cvm = AdminCategoryMappers.CategoryToViewModel(productCategory);
-            
-            return View(cvm);
-        }
-
         // GET: Admin/ProductCategories/Create
         public ActionResult Create()
         {
@@ -131,7 +111,6 @@ namespace App.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            
             ProductCategory productCategory = db.ProductCategories.Find(id);
             ProductCategory otherCategory = db.ProductCategories.FirstOrDefault(x => x.CategoryName == "Other");
 

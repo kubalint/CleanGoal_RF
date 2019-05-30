@@ -256,6 +256,7 @@
     <Content Include="Images\CategoryImages\other.jpg" />
     <Content Include="Images\CategoryImages\textil.jpg" />
     <Content Include="Images\CategoryImages\vase.jpg" />
+    <Content Include="Images\DefaultImages\defaultIMG.png" />
     <Content Include="Images\DefaultImages\defaultProduct.png" />
     <Content Include="Images\Icons\bag.png" />
     <Content Include="Images\Icons\menu.png" />
@@ -274,11 +275,9 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\ProductCategories\Create.cshtml" />
     <Content Include="Areas\Admin\Views\ProductCategories\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\ProductCategories\Details.cshtml" />
     <Content Include="Areas\Admin\Views\ProductCategories\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ProductCategories\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Products\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ApplicationUsers\Create.cshtml" />
